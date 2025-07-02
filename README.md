@@ -1,2 +1,3 @@
 # budget-fi-v2
-Redesigning Budget App using React/Typescript, TailwindCSS, NodeJS and PostgresSQL
+Redesigning Budget FI App using React/Typescript, TailwindCSS, NodeJS and PostgresSQL
+
