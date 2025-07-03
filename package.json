@@ -2,9 +2,9 @@
   "name": "budget-fi-v2",
   "private": true,
   "workspaces": [
-    "client"
+    "client",
+    "server"
   ],
-  "scripts": {},
   "homepage": "https://github.com/stanwong86/budget-fi-v2#readme",
   "dependencies": {
   },
