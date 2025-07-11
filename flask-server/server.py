@@ -34,20 +34,16 @@ def home():
 
 @app.route("/budgets", methods=["GET"])
 def get_budgets():
-    # r = requests.get(f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}", headers=SUPABASE_HEADERS)
-    # return jsonify(r.json()), r.status_code
     data = supabase.table("budgets").select("*").execute()
     return jsonify(data.data)
 
 @app.route("/budgets", methods=["POST"])
 def create_budget():
-    data = request.json
-    r = requests.post(
-        f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}",
-        json=data,
-        headers=SUPABASE_HEADERS
-    )
-    return jsonify(r.json()), r.status_code
+    if not request.json:
+        return jsonify({"error": "No JSON data provided"}), 400
+    
+    data = supabase.table("budgets").update(request.json).eq("id", request.json["id"]).execute()
+    return jsonify(data.data[0])
 
 if __name__ == "__main__":
     app.run(debug=True)

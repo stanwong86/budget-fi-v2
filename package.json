@@ -6,8 +6,7 @@
     "server"
   ],
   "homepage": "https://github.com/stanwong86/budget-fi-v2#readme",
-  "dependencies": {
-  },
   "devDependencies": {
+    "supabase": "^2.30.4"
   }
 }
