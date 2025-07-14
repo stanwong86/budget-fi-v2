@@ -19,7 +19,8 @@ if not SUPABASE_URL or not SUPABASE_API_KEY:
         "Please check your .env file."
     )
 
-supabase = create_client(SUPABASE_URL, SUPABASE_API_KEY)
+print("SUPABASE_API_KEY: " + SUPABASE_API_KEY)
+supabase = create_client(supabase_url=SUPABASE_URL, supabase_key=SUPABASE_API_KEY)
 
 SUPABASE_HEADERS = {
     "apikey": SUPABASE_API_KEY,
