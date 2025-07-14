@@ -9,6 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:5173'])
 
+PORT = int(os.environ.get("PORT", 5000))
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_API_KEY = os.getenv("SUPABASE_KEY")
 SUPABASE_TABLE = os.getenv("SUPABASE_TABLE")
@@ -46,4 +47,4 @@ def create_budget():
     return jsonify(data.data[0])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=PORT)
