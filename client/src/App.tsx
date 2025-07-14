@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'
 
+let API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const RUN_DEV = import.meta.env.VITE_RUN_DEV === 'true';
+
+if (RUN_DEV) {
+  API_BASE_URL = 'http://localhost:5000'
+}
+
 const initialBudget = {
   housing: '',
   utilities: '',
@@ -21,7 +28,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:5000/budgets')
+    fetch(`${API_BASE_URL}/budgets`)
       .then(res => res.json())
       .then(data => {
         if (data && typeof data === 'object') {
@@ -41,7 +48,7 @@ function App() {
     e.preventDefault();
     setSaving(true);
     setMessage('');
-    fetch('http://localhost:5000/budgets', {
+    fetch(`${API_BASE_URL}/budgets`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(budget),
