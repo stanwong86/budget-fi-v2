@@ -7,7 +7,14 @@ from supabase import create_client
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:5173'])
+CORS(
+    app,
+    resources={r"/*": {"origins": [
+        "http://localhost:5173",             # dev Vite/React
+        "https://budget-fi-v2.onrender.com"  # prod frontend
+    ]}},
+    supports_credentials=True            # drop this line if you’re not using cookies or auth headers
+)
 
 PORT = int(os.environ.get("PORT", 5000))
 SUPABASE_URL = os.getenv("SUPABASE_URL")
