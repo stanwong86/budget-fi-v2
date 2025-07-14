@@ -11,7 +11,7 @@ CORS(
     app,
     resources={r"/*": {"origins": [
         "http://localhost:5173",             # dev Vite/React
-        "https://budget-fi-v2.onrender.com"  # prod frontend
+        "https://budget-fi.netlify.app"      # prod frontend
     ]}},
     supports_credentials=True            # drop this line if you’re not using cookies or auth headers
 )
