@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 from supabase import create_client
+from gemini_api import call_gemini_api, call_gemini_api_test  # Import the Gemini API helper
 
 load_dotenv()
 
@@ -27,7 +28,6 @@ if not SUPABASE_URL or not SUPABASE_API_KEY:
         "Please check your .env file."
     )
 
-print("SUPABASE_API_KEY: " + SUPABASE_API_KEY)
 supabase = create_client(supabase_url=SUPABASE_URL, supabase_key=SUPABASE_API_KEY)
 
 SUPABASE_HEADERS = {
@@ -52,6 +52,25 @@ def create_budget():
     
     data = supabase.table("budgets").update(request.json).eq("id", request.json["id"]).execute()
     return jsonify(data.data[0])
+
+@app.route("/gemini", methods=["POST"])
+def gemini_route():
+    if not request.json or "prompt" not in request.json:
+        return jsonify({"error": "No prompt provided"}), 400
+    prompt = request.json["prompt"]
+    try:
+        result = call_gemini_api(prompt)
+        return jsonify({"result": result})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/gemini", methods=["GET"])
+def gemini_route_get():
+    try:
+        result = call_gemini_api_test()
+        return jsonify({"result": result})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=PORT)
