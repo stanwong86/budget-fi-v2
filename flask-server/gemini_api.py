@@ -10,7 +10,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 def call_gemini_api_test():
     print('Dev mode: Prompt Ignored')
     
-    prompt = "How much does the average house cost in the US vs NYC?"
+    prompt = "Tell me a really funny joke"
     response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
 
     data = {
