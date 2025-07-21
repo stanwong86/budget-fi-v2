@@ -79,24 +79,30 @@ function App() {
             <div className="text-lg text-blue-400 font-semibold">Loading...</div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
-              {categories.map(cat => (
-                <div key={cat.key} className="flex items-center space-x-4 mb-4">
-                  <label htmlFor={cat.key} className="text-gray-300 text-sm font-medium text-left w-48">
-                    {cat.label}
-                  </label>
-                  <input
-                    id={cat.key}
-                    name={cat.key}
-                    type="number"
-                    min="0"
-                    step="1"
-                    value={budget[cat.key as keyof typeof budget]}
-                    onChange={handleChange}
-                    className="flex-1 rounded-lg border border-gray-700 focus:border-blue-400 focus:ring-2 focus:ring-blue-900 px-4 py-2 text-gray-100 bg-gray-800 transition placeholder:text-gray-400 outline-none shadow-sm hover:border-blue-400"
-                    placeholder={`Enter amount`}
-                  />
-                </div>
-              ))}
+              <table className="w-full">
+                <tbody>
+                  {categories.map(cat => (
+                    <tr key={cat.key} className="mb-4">
+                      <td className="text-gray-300 text-sm font-medium text-left w-48 pr-4 align-middle">
+                        <label htmlFor={cat.key}>{cat.label}</label>
+                      </td>
+                      <td className="align-middle">
+                        <input
+                          id={cat.key}
+                          name={cat.key}
+                          type="number"
+                          min="0"
+                          step="1"
+                          value={budget[cat.key as keyof typeof budget]}
+                          onChange={handleChange}
+                          className="w-full rounded-lg border border-gray-700 focus:border-blue-400 focus:ring-2 focus:ring-blue-900 px-4 py-2 text-gray-100 bg-gray-800 transition placeholder:text-gray-400 outline-none shadow-sm hover:border-blue-400"
+                          placeholder={`Enter amount`}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               <button
                 type="submit"
                 className="w-full bg-blue-700 hover:bg-blue-800 transition text-white font-semibold py-3 rounded-lg shadow-md disabled:opacity-60"
