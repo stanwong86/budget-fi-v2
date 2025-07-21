@@ -39,9 +39,18 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Add a helper to format numbers with commas
+  const formatNumber = (value: string) => {
+    const num = value.replace(/[^\d]/g, '');
+    if (!num) return '';
+    return parseInt(num, 10).toLocaleString();
+  };
+
+  const handleFormattedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBudget(prev => ({ ...prev, [name]: value }));
+    // Remove all non-digit characters
+    const numericValue = value.replace(/[^\d]/g, '');
+    setBudget(prev => ({ ...prev, [name]: numericValue }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -87,17 +96,21 @@ function App() {
                         <label htmlFor={cat.key}>{cat.label}</label>
                       </td>
                       <td className="align-middle">
-                        <input
-                          id={cat.key}
-                          name={cat.key}
-                          type="number"
-                          min="0"
-                          step="1"
-                          value={budget[cat.key as keyof typeof budget]}
-                          onChange={handleChange}
-                          className="w-full rounded-lg border border-gray-700 focus:border-blue-400 focus:ring-2 focus:ring-blue-900 px-4 py-2 text-gray-100 bg-gray-800 transition placeholder:text-gray-400 outline-none shadow-sm hover:border-blue-400"
-                          placeholder={`Enter amount`}
-                        />
+                        <span className="relative inline-flex items-center w-full">
+                          <span className="absolute left-3 text-gray-400 pointer-events-none select-none">$</span>
+                          <input
+                            id={cat.key}
+                            name={cat.key}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9,]*"
+                            value={formatNumber(budget[cat.key as keyof typeof budget])}
+                            onChange={handleFormattedChange}
+                            className="w-full rounded-lg border border-gray-700 focus:border-blue-400 focus:ring-2 focus:ring-blue-900 pl-7 pr-4 py-2 text-gray-100 bg-gray-800 transition placeholder:text-gray-400 outline-none shadow-sm hover:border-blue-400"
+                            placeholder={`Enter amount`}
+                            autoComplete="off"
+                          />
+                        </span>
                       </td>
                     </tr>
                   ))}
