@@ -70,11 +70,11 @@ function App() {
   const categories = [
     { key: 'housing', label: 'Housing' },
     { key: 'utilities', label: 'Utilities' },
-    { key: 'groceries', label: 'Groceries / Food at Home' },
+    { key: 'groceries', label: 'Groceries' },
     { key: 'transportation', label: 'Transportation' },
     { key: 'insurance', label: 'Insurance' },
-    { key: 'healthcare', label: 'Healthcare / Medical' },
-    { key: 'childcare', label: 'Childcare / Schooling' },
+    { key: 'healthcare', label: 'Healthcare' },
+    { key: 'childcare', label: 'Childcare' },
     { key: 'debt', label: 'Debt Payments' },
     { key: 'phone_internet', label: 'Phone / Internet' },
   ];
@@ -88,6 +88,7 @@ function App() {
             <div className="text-lg text-blue-400 font-semibold">Loading...</div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              <label>Enter monthly budget below:</label>
               <table className="w-full">
                 <tbody>
                   {categories.map(cat => (
@@ -118,7 +119,7 @@ function App() {
               </table>
               <button
                 type="submit"
-                className="w-full bg-blue-700 hover:bg-blue-800 transition text-white font-semibold py-3 rounded-lg shadow-md disabled:opacity-60"
+                className="save-button"
                 disabled={saving}
               >
                 {saving ? 'Saving...' : 'Save Budget'}

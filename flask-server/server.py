@@ -46,7 +46,7 @@ def get_budgets():
     return jsonify(data.data)
 
 @app.route("/budgets", methods=["POST"])
-def create_budget():
+def save_budget():
     if not request.json:
         return jsonify({"error": "No JSON data provided"}), 400
     

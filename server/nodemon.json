@@ -1,9 +1,0 @@
-{
-  "watch": ["src/**/*.ts", "*.ts"],
-  "exec": "npx ts-node index.ts",
-  "ext": "ts,js,json",
-  "ignore": ["node_modules/**/*"],
-  "env": {
-    "NODE_ENV": "development"
-  }
-} 
